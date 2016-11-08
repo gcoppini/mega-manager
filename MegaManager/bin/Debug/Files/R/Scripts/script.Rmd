@@ -1,0 +1,235 @@
+---
+title: "Integer Sequence Learning"
+author: "Maurice Berk"
+date: "25 June 2016"
+output: html_document
+---
+
+#Load the data
+
+```{r loadData}
+train <- read.csv("C:\\mega.csv",stringsAsFactors=FALSE)
+sequences <- strsplit(train$Sequence,split=",")
+```
+
+What is the most frequent final element of each sequence in the training set?
+
+```{r findMostFrequentFinalElement}
+finalElements <- sapply(sequences,tail,n=1)
+frequencies <- table(finalElements)
+index <- which.max(frequencies)
+mostFrequentFinalElement <- names(frequencies)[index]
+mostFrequentFinalElement
+```
+and it occurs `r frequencies[index]` times.
+
+Let's build a classifier to predict if the final element will be a `r mostFrequentFinalElement`!
+
+First let's divide the data 50:50 into a new training and test set. We'll keep the class proportions the same.
+
+```{r divideData}
+# Set the seed so this is reproducible across runs
+set.seed(123)
+# %/% is integer division
+trainingIndices <- c(
+  sample(which(finalElements==mostFrequentFinalElement),
+         size=sum(finalElements==mostFrequentFinalElement)%/%2,
+         replace=FALSE),
+  sample(which(finalElements!=mostFrequentFinalElement),
+         size=sum(finalElements!=mostFrequentFinalElement)%/%2,
+         replace=FALSE))
+
+testIndices <- setdiff(1:length(sequences),trainingIndices)
+str(trainingIndices)
+```
+
+First step is to engineer some features. How about the number of times a
+`r mostFrequentFinalElement` has already occurred in the sequence?
+
+```{r featureEngineering1}
+features <- data.frame(
+  previousCount=sapply(sequences[trainingIndices],
+                       function(sequence)
+                       {
+                         sum(head(sequence,-1)==mostFrequentFinalElement)
+                       })
+)
+```
+
+How predictive does it look?
+
+```{r featureEngineering2}
+maxCount <- max(features$previousCount)
+classProbabilities <- sapply(0:maxCount,
+                             function(count)
+                             {
+                               mean(finalElements[trainingIndices][features$previousCount==count]==mostFrequentFinalElement)
+                             })
+
+plot(x=0:maxCount,
+     y=classProbabilities,
+     ylab=paste0("Probability Final Element is ",mostFrequentFinalElement),
+     xlab=paste0("Number of ",mostFrequentFinalElement,"s in the Sequence"))
+```
+
+Looks great! As expected, the more `r mostFrequentFinalElement`s in the
+sequence, the more likely it is that the final element will be the same.
+
+Let's build and look at some more features. Next, the maximum value in the sequence:
+
+```{r featureEngineering3}
+features$max <- sapply(sequences[trainingIndices],
+                       function(sequence)
+                       {
+                         max(as.numeric(head(sequence,-1)))
+                       })
+```
+
+We'll have to bucket it to get a meaningful visualisation:
+
+```{r featureEngineering4}
+buckets <- cut(features$max,quantile(features$max,seq(0.1,by=0.1)))
+
+classProbabilities <- sapply(split(finalElements[trainingIndices],buckets),
+                             function(finalElementsByBucket)
+                             {
+                               mean(finalElementsByBucket==mostFrequentFinalElement)
+                             })
+
+par(mar=c(12,4,4,2)+0.1)
+plot(x=1:10,
+     xaxt="n",
+     y=classProbabilities,
+     ylab=paste0("Probability Final Element is ",mostFrequentFinalElement),
+     xlab="",las=2)
+
+axis(side=1,at=1:10,labels=levels(buckets),las=2)
+title(xlab=paste0("Sequence Maximum (Bucketed)"),line=10)
+```
+
+Another clear relationship with the probability that the final element is a
+`r mostFrequentFinalElement`.
+
+We can also consider some binary features, such as whether there are any negative values:
+
+```{r featureEngineering5}
+features$anyNegatives <- sapply(sequences[trainingIndices],
+                                function(sequence)
+                                {
+                                  any(grepl("-",head(sequence,-1)))
+                                })
+
+classProbabilities <- c(mean(finalElements[trainingIndices][features$anyNegatives]==mostFrequentFinalElement),
+                        mean(finalElements[trainingIndices][!features$anyNegatives]==mostFrequentFinalElement))
+
+plot(x=1:2,
+     y=classProbabilities,
+     ylab=paste0("Probability Final Element is ",mostFrequentFinalElement),
+     xlab="Is There a Negative Value in the Sequence?",
+     xaxt="n")
+axis(side=1,at=1:2,labels=c("Yes","No"))
+```
+
+The class frequency is almost double when there is at least one negative value
+in the sequence.
+
+Now we'll fit a logistic regression based on these three features. First, based
+on the visualisation of the relationship between sequence maximum and class
+probability, we'll replace that feature with four categories:
+
+* Max is 9 or less
+* Max is 10 - 19, inclusive
+* Max is 20 - 29 inclusive
+* Max is 30 - 39 inclusive
+* Max is 40 - 49 inclusive
+* Max is 50 - 59 inclusive
+* Max is 60 or greater
+
+```{r logisticRegression}
+features$maxBucketed <- "9 or less"
+features$maxBucketed[features$max>=10 & features$max<=19] <- "10 - 19"
+features$maxBucketed[features$max>=20 & features$max<=29] <- "20 - 29"
+features$maxBucketed[features$max>=30 & features$max<=39] <- "30 - 39"
+features$maxBucketed[features$max>=40 & features$max<=49] <- "40 - 49"
+features$maxBucketed[features$max>=50 & features$max<=59] <- "50 - 59"
+features$maxBucketed[features$max>=60] <- "60 or greater"
+
+# Define the levels manually so we capture the ordering
+features$maxBucketed <- factor(features$maxBucketed,
+                               levels=c("9 or less",
+                                        "10 - 19",
+                                        "20 - 29",
+                                        "30 - 39",
+                                        "40 - 49",
+                                        "50 - 59",
+                                        "60 or greater"))
+
+features$class <- finalElements[trainingIndices]==mostFrequentFinalElement
+
+features
+
+fit <- glm(class~previousCount+maxBucketed+anyNegatives,family="binomial",data=features)
+summary(fit)
+
+```
+
+Let's see what the AUC's like for the test set:
+
+```{r AUC}
+library(AUC)
+
+features <- data.frame(
+  previousCount=sapply(sequences[testIndices],
+                       function(sequence)
+                       {
+                         sum(head(sequence,-1)==mostFrequentFinalElement)
+                       }),
+  anyNegatives=sapply(sequences[testIndices],
+                                function(sequence)
+                                {
+                                  any(grepl("-",head(sequence,-1)))
+                                }),
+  max=sapply(sequences[testIndices],
+                       function(sequence)
+                       {
+                         max(as.numeric(head(sequence,-1)))
+                       }),
+  class=finalElements[testIndices]==mostFrequentFinalElement
+)
+
+features$maxBucketed <- "9 or less"
+features$maxBucketed[features$max>=10 & features$max<=19] <- "10 - 19"
+features$maxBucketed[features$max>=20 & features$max<=29] <- "20 - 29"
+features$maxBucketed[features$max>=30 & features$max<=39] <- "30 - 39"
+features$maxBucketed[features$max>=40 & features$max<=49] <- "40 - 49"
+features$maxBucketed[features$max>=50 & features$max<=59] <- "50 - 59"
+features$maxBucketed[features$max>=60] <- "60 or greater"
+
+# Define the levels manually so we capture the ordering
+features$maxBucketed <- factor(features$maxBucketed,
+                               levels=c("9 or less",
+                                        "10 - 19",
+                                        "20 - 29",
+                                        "30 - 39",
+                                        "40 - 49",
+                                        "50 - 59",
+                                        "60 or greater"))
+
+predictions <- predict(fit,newdata=features,type="response")
+
+auc(roc(predictions,factor(features$class)))
+```
+
+Suggested next steps:
+
+* Engineer more features
+* Build classifiers for other final elements
+* Switch from logistic regression to random forests or other more sophisticated methods
+* Expand data set to include test data, and/or divide up sequences to create more samples
+* Combine classifiers with other methods to deal with infrequent final elements
+
+Contact:
+
+* maurice@maurceberk.com
+* http://www.diaryofakaggler.com
+Comments

@@ -1,0 +1,9 @@
+C:\Projetos\MegaManager\MegaManager.Models\bin\Debug\MegaManager.Models.dll
+C:\Projetos\MegaManager\MegaManager.Models\bin\Debug\MegaManager.Models.pdb
+C:\Projetos\MegaManager\MegaManager.Models\obj\Debug\MegaManager.Models.csprojResolveAssemblyReference.cache
+C:\Projetos\MegaManager\MegaManager.Models\obj\Debug\MegaManager.Models.dll
+C:\Projetos\MegaManager\MegaManager.Models\obj\Debug\MegaManager.Models.pdb
+C:\Users\gabriel.coppini\Dropbox\Scania\MegaManager\MegaManager.Models\bin\Debug\MegaManager.Models.dll
+C:\Users\gabriel.coppini\Dropbox\Scania\MegaManager\MegaManager.Models\bin\Debug\MegaManager.Models.pdb
+C:\Users\gabriel.coppini\Dropbox\Scania\MegaManager\MegaManager.Models\obj\Debug\MegaManager.Models.dll
+C:\Users\gabriel.coppini\Dropbox\Scania\MegaManager\MegaManager.Models\obj\Debug\MegaManager.Models.pdb
