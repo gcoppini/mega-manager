@@ -1,4 +1,0 @@
-C:\Users\gabriel.coppini\Dropbox\Scania\MegaManager\MegaManager.Domain.Main\bin\Debug\MegaManager.Domain.Main.dll
-C:\Users\gabriel.coppini\Dropbox\Scania\MegaManager\MegaManager.Domain.Main\bin\Debug\MegaManager.Domain.Main.pdb
-C:\Users\gabriel.coppini\Dropbox\Scania\MegaManager\MegaManager.Domain.Main\obj\Debug\MegaManager.Domain.Main.dll
-C:\Users\gabriel.coppini\Dropbox\Scania\MegaManager\MegaManager.Domain.Main\obj\Debug\MegaManager.Domain.Main.pdb
