@@ -33,10 +33,10 @@ namespace MegaManager
         const string FILE_EXTRACTED_NAME = "d_megasc.htm";
                
 
-        private const string PROXY_LOGIN = @"GLOBAL\sbtgao";
-        private const string PROXY_PASS = "Welcome@2015";
+        private const string PROXY_LOGIN = @"foo\bar";
+        private const string PROXY_PASS = "foo@bar";
 
-        private const string PROXY_SERVER = "PROXYBRSA1.SCANIA.COM";
+        private const string PROXY_SERVER = "FOO.BAR.COM";
         private const int PROXY_PORT = 8080;
 
 

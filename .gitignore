@@ -3,3 +3,12 @@
 ################################################################################
 
 /MegaManager/obj/Debug
+/MegaManager/bin/Debug
+/MegaManager.DAL/bin/Debug
+/MegaManager.DAL/obj/Debug
+/MegaManager.Data.Core/bin/Debug
+/MegaManager.Domain.Main/bin/Debug
+/MegaManager.Tests/bin/Debug
+/MegaManager.Tests/obj/Debug
+/MegaManager.Domain.Main/obj/Debug
+/MegaManager.Data.Core/obj/Debug
