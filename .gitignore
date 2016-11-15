@@ -75,6 +75,7 @@ packages/
 #Tooling
 _ReSharper*/
 *.resharper
+TestResults/
 [Tt]est[Rr]esult*
 
 #Project files
