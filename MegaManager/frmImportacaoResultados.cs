@@ -1,23 +1,14 @@
 ﻿using HtmlAgilityPack;
 using MegaManager.DAL;
-using MegaManager.Models;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Configuration;
 using System.Data;
-using System.Data.Common;
 using System.Diagnostics;
-using System.Drawing;
 using System.IO;
 using System.IO.Compression;
 using System.Linq;
 using System.Net;
-using System.Reflection;
 using System.Security.Cryptography;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using MegaManager.Domain.Main;
 
@@ -90,8 +81,7 @@ namespace MegaManager
             linkLabelExtractedFolder.Text = PASTA_EXTRACTED;
             linkLabelExtractedFolder.Links.Add(0, PASTA_EXTRACTED.Length, PASTA_EXTRACTED);
         }
-
-
+        
 
         private void ConfiguraListView() 
         {
@@ -103,17 +93,14 @@ namespace MegaManager
             listView2.Columns.Add("Hash", 100);
             listView2.Columns.Add("Data", 100);
         }
-
-
-        
+                
         private bool CheckNumber(string s) 
         {
             if (string.IsNullOrEmpty(s)) return false;
             return s.All(Char.IsDigit);
         }
         
-
-
+        
         private void CarregaGridResultados(List<Resultado> listToImport)
         {
             DataTable table = Helpers.ToDataTable<Resultado>(listToImport);
@@ -156,27 +143,23 @@ namespace MegaManager
         
         private void DownloadArquivoResultados()
         {
-
-       
-
             string p = Path.Combine(PATH_DOWNLOAD, FILE_DOWNLOAD_NAME);
-            
 
             CookieContainer cookieJar = new CookieContainer();
-                     
 
-            WebRequest requestLogin = WebRequest.Create(URL_GET_COOKIES);
-            ((HttpWebRequest)requestLogin).CookieContainer = cookieJar;
+            WebRequest requestCookieCapture = WebRequest.Create(URL_GET_COOKIES);
+            ((HttpWebRequest)requestCookieCapture).CookieContainer = cookieJar;
+
             WebProxy myproxy = new WebProxy(PROXY_SERVER, PROXY_PORT);
             myproxy.BypassProxyOnLocal = false;
             myproxy.Credentials = new NetworkCredential(PROXY_LOGIN, PROXY_PASS);
             //requestLogin.Proxy = myproxy;
 
-            requestLogin.ContentType = "application/x-www-form-urlencoded";
-            requestLogin.Method = "GET";
+            requestCookieCapture.ContentType = "application/x-www-form-urlencoded";
+            requestCookieCapture.Method = "GET";
             
 
-            WebResponse responseLogin = requestLogin.GetResponse();
+            WebResponse responseLogin = requestCookieCapture.GetResponse();
             //string cookieHeader = resp.Headers["Set-cookie"];
 
             
@@ -185,24 +168,23 @@ namespace MegaManager
             {
                 contentLogin = sr.ReadToEnd();
             }
-
          
 
-            WebRequest requestBatePonto = WebRequest.Create(URL_ARQUIVO_RESULTADOS);
+            WebRequest requestDownloadResultados = WebRequest.Create(URL_ARQUIVO_RESULTADOS);
             //requestBatePonto.Proxy = myproxy;
-            ((HttpWebRequest)requestBatePonto).CookieContainer = cookieJar;
-            HttpWebResponse responseBatePonto = (HttpWebResponse)requestBatePonto.GetResponse();
+            ((HttpWebRequest)requestDownloadResultados).CookieContainer = cookieJar;
+            HttpWebResponse responseDownloadResultados = (HttpWebResponse)requestDownloadResultados.GetResponse();
 
-            using (Stream MyResponseStream = responseBatePonto.GetResponseStream())
+            using (Stream responseStream = responseDownloadResultados.GetResponseStream())
             {
-                using (FileStream MyFileStream = new FileStream(p, FileMode.OpenOrCreate, FileAccess.Write))
+                using (FileStream fileStream = new FileStream(p, FileMode.OpenOrCreate, FileAccess.Write))
                 {
-                    byte[] MyBuffer = new byte[4096];
+                    byte[] buffer = new byte[4096];
                     int BytesRead;
                     
-                    while (0 < (BytesRead = MyResponseStream.Read(MyBuffer, 0, MyBuffer.Length)))
+                    while (0 < (BytesRead = responseStream.Read(buffer, 0, buffer.Length)))
                     {
-                        MyFileStream.Write(MyBuffer, 0, BytesRead);
+                        fileStream.Write(buffer, 0, BytesRead);
                     }
                 }
             }
@@ -297,16 +279,7 @@ namespace MegaManager
             }
         }
 
-        
-
-
-
-
-
-   
-
-
-        private void btnImportarResultados_Click(object sender, EventArgs e)
+        private void ImportarResultados()
         {
             List<Resultado> lista = new List<Resultado>();
 
@@ -318,18 +291,61 @@ namespace MegaManager
             var novos = (from r in listToImport
                          where !(from p in lista select p.Concurso).Contains(r.Concurso)
                          select r).ToList();
-            
-            
 
-            string msg = string.Format("{0} novo resultado.  Deseja Importar?", novos.Count);
 
-            if (MessageBox.Show(msg,"", MessageBoxButtons.YesNo) == System.Windows.Forms.DialogResult.Yes)
+
+            if (novos.Count > 0)
             {
-                using (ResultadoDAL dal = new ResultadoDAL())
+                string msg = string.Format("{0} novo resultado.  Deseja Importar?", novos.Count);
+
+                if (MessageBox.Show(msg, "", MessageBoxButtons.YesNo) == System.Windows.Forms.DialogResult.Yes)
                 {
-                    dal.ImportToDatabase(novos);
+
+                    try
+                    {
+                        using (ResultadoDAL dal = new ResultadoDAL())
+                        {
+                            dal.ImportToDatabase(novos);
+                        }
+
+                        MessageBox.Show("Importação realizada com sucesso");
+                    }
+                    catch (Exception)
+                    {
+                        MessageBox.Show("Falha ao realizar a importação");
+                        throw;
+                    }
                 }
             }
+            else
+            {
+                MessageBox.Show("Sem novos resultado");
+            }
+        }
+
+        private void CarregarResultados()
+        {
+            List<Resultado> lista = new List<Resultado>();
+
+            using (ResultadoDAL dal = new ResultadoDAL())
+            {
+                lista = dal.GetAll();
+            }
+
+
+            DataTable table = Helpers.ToDataTable<Resultado>(lista);
+
+            dataGridView1.DataSource = table;
+        }
+
+
+
+
+
+
+        private void btnImportarResultados_Click(object sender, EventArgs e)
+        {
+            ImportarResultados();
         }
 
         private void btnDownloadResultados_Click(object sender, EventArgs e)
@@ -340,18 +356,9 @@ namespace MegaManager
 
         private void btnExibirResultados_Click(object sender, EventArgs e)
         {
-            List<Resultado> lista = new List<Resultado>();
-            
-            using (ResultadoDAL dal = new ResultadoDAL())
-            {
-                lista = dal.GetAll();
-            }
-                        
-
-            DataTable table = Helpers.ToDataTable<Resultado>(lista);
-
-            dataGridView1.DataSource = table;
+            CarregarResultados();
         }
+               
 
         private void btnExtrairResultados_Click(object sender, EventArgs e)
         {
