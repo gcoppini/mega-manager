@@ -1,10 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Configuration;
 using System.Data.Common;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MegaManager.DAL
 {
@@ -19,16 +14,7 @@ namespace MegaManager.DAL
 
         public BaseDAL()
         {
-            /*
-            var connectionString = ConfigurationManager.ConnectionStrings["MegaManager"];
-            var providerName = connectionString.ProviderName;
-            var factory = DbProviderFactories.GetFactory(providerName);
 
-            connection = factory.CreateConnection();
-            connection.ConnectionString = connectionString.ToString();
-                        
-            connection.Open();
-             */
         }
 
         public void Dispose()

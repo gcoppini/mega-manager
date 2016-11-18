@@ -1,7 +1,5 @@
-﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using MegaManager.Data.Main;
-using MegaManager.Domain.Main;
 using System.Linq;
 
 namespace MegaManager.Tests

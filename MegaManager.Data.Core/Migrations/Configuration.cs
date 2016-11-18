@@ -1,10 +1,7 @@
 namespace MegaManager.Data.Main.Migrations
 {
-    using System;
-    using System.Data.Entity;
     using System.Data.Entity.Migrations;
-    using System.Linq;
-    using MegaManager.Domain.Main;
+    using Domain.Main;
 
     internal sealed class Configuration : DbMigrationsConfiguration<MegaManager.Data.Main.DataContext>
     {
@@ -13,7 +10,7 @@ namespace MegaManager.Data.Main.Migrations
             AutomaticMigrationsEnabled = true;
         }
 
-        protected override void Seed(MegaManager.Data.Main.DataContext context)
+        protected override void Seed(DataContext context)
         {
             //  This method will be called after migrating to the latest version.
 
