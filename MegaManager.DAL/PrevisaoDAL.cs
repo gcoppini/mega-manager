@@ -5,7 +5,7 @@ using MegaManager.Domain.Main;
 
 namespace MegaManager.DAL
 {
-    public class PrevisaoDAL : BaseDAL
+    public class PrevisaoDAL : BaseRepository<Previsao>
     {
         private bool _disposed;
         

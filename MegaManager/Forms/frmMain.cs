@@ -7,17 +7,26 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using MegaManager.Data.Main;
+using MegaManager.Domain.Main;
 
 namespace MegaManager
 {
-    public partial class frmMain : Form
+    public partial class frmMain : BaseForm
     {
         private int childFormNumber = 0;
+        
 
-        public frmMain()
+        public frmMain(IRepository<Resultado> resultadoRepository,
+                       IRepository<Gabarito> gabaritoRepository)
         {
+            App.Instance._resultadoRepository = resultadoRepository;
+            App.Instance._gabaritoRepository = gabaritoRepository;
+                        
             InitializeComponent();
         }
+
+        
 
         private void ShowNewForm(object sender, EventArgs e)
         {

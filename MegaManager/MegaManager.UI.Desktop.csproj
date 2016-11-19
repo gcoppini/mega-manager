@@ -64,6 +64,10 @@
     <Reference Include="HtmlAgilityPack">
       <HintPath>..\packages\HtmlAgilityPack.1.4.9\lib\Net45\HtmlAgilityPack.dll</HintPath>
     </Reference>
+    <Reference Include="Ninject, Version=3.2.0.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
+      <HintPath>..\packages\Ninject.3.2.2.0\lib\net45-full\Ninject.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="RDotNet">
       <HintPath>..\packages\R.NET.Community.1.6.5\lib\net40\RDotNet.dll</HintPath>
     </Reference>
@@ -87,79 +91,85 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="frmAnaliseR.cs">
+    <Compile Include="App.cs" />
+    <Compile Include="ApplicationModule.cs" />
+    <Compile Include="Forms\BaseForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="frmAnaliseR.Designer.cs">
+    <Compile Include="CompositionRoot.cs" />
+    <Compile Include="Forms\frmAnaliseR.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\frmAnaliseR.Designer.cs">
       <DependentUpon>frmAnaliseR.cs</DependentUpon>
     </Compile>
-    <Compile Include="frmAnaliseResultados.cs">
+    <Compile Include="Forms\frmAnaliseResultados.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="frmAnaliseResultados.Designer.cs">
+    <Compile Include="Forms\frmAnaliseResultados.Designer.cs">
       <DependentUpon>frmAnaliseResultados.cs</DependentUpon>
     </Compile>
-    <Compile Include="frmGabaritos.cs">
+    <Compile Include="Forms\frmGabaritos.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="frmGabaritos.Designer.cs">
+    <Compile Include="Forms\frmGabaritos.Designer.cs">
       <DependentUpon>frmGabaritos.cs</DependentUpon>
     </Compile>
-    <Compile Include="frmGeradorGabarito.cs">
+    <Compile Include="Forms\frmGeradorGabarito.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="frmGeradorGabarito.Designer.cs">
+    <Compile Include="Forms\frmGeradorGabarito.Designer.cs">
       <DependentUpon>frmGeradorGabarito.cs</DependentUpon>
     </Compile>
-    <Compile Include="frmGeradorJogos.cs">
+    <Compile Include="Forms\frmGeradorJogos.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="frmGeradorJogos.Designer.cs">
+    <Compile Include="Forms\frmGeradorJogos.Designer.cs">
       <DependentUpon>frmGeradorJogos.cs</DependentUpon>
     </Compile>
-    <Compile Include="frmImportacaoResultados.cs">
+    <Compile Include="Forms\frmImportacaoResultados.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="frmImportacaoResultados.Designer.cs">
+    <Compile Include="Forms\frmImportacaoResultados.Designer.cs">
       <DependentUpon>frmImportacaoResultados.cs</DependentUpon>
     </Compile>
-    <Compile Include="frmMain.cs">
+    <Compile Include="Forms\frmMain.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="frmMain.Designer.cs">
+    <Compile Include="Forms\frmMain.Designer.cs">
       <DependentUpon>frmMain.cs</DependentUpon>
     </Compile>
-    <Compile Include="frmPrevisao.cs">
+    <Compile Include="Forms\frmPrevisao.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="frmPrevisao.Designer.cs">
+    <Compile Include="Forms\frmPrevisao.Designer.cs">
       <DependentUpon>frmPrevisao.cs</DependentUpon>
     </Compile>
     <Compile Include="Helpers.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="frmAnaliseR.resx">
+    <EmbeddedResource Include="Forms\frmAnaliseR.resx">
       <DependentUpon>frmAnaliseR.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="frmAnaliseResultados.resx">
+    <EmbeddedResource Include="Forms\frmAnaliseResultados.resx">
       <DependentUpon>frmAnaliseResultados.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="frmGabaritos.resx">
+    <EmbeddedResource Include="Forms\frmGabaritos.resx">
       <DependentUpon>frmGabaritos.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="frmGeradorGabarito.resx">
+    <EmbeddedResource Include="Forms\frmGeradorGabarito.resx">
       <DependentUpon>frmGeradorGabarito.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="frmGeradorJogos.resx">
+    <EmbeddedResource Include="Forms\frmGeradorJogos.resx">
       <DependentUpon>frmGeradorJogos.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="frmImportacaoResultados.resx">
+    <EmbeddedResource Include="Forms\frmImportacaoResultados.resx">
       <DependentUpon>frmImportacaoResultados.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="frmMain.resx">
+    <EmbeddedResource Include="Forms\frmMain.resx">
       <DependentUpon>frmMain.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="frmPrevisao.resx">
+    <EmbeddedResource Include="Forms\frmPrevisao.resx">
       <DependentUpon>frmPrevisao.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
@@ -221,6 +231,10 @@
     <ProjectReference Include="..\MegaManager.DAL\MegaManager.DAL.csproj">
       <Project>{c841bb8e-6328-4c2e-be43-7b1c55e34c54}</Project>
       <Name>MegaManager.DAL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MegaManager.Data.Core\MegaManager.Data.Main.csproj">
+      <Project>{0c7f92ba-17ba-4158-9a55-949a45a88fd4}</Project>
+      <Name>MegaManager.Data.Main</Name>
     </ProjectReference>
     <ProjectReference Include="..\MegaManager.Domain.Main\MegaManager.Domain.Main.csproj">
       <Project>{c10b1041-5472-4559-bdfc-2f83279b70ff}</Project>

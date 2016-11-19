@@ -64,11 +64,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Base\BaseRepository.cs" />
+    <Compile Include="Base\IRepository.cs" />
     <Compile Include="DataContext.cs" />
     <Compile Include="Map\GabaritoMap.cs" />
     <Compile Include="Map\PrevisaoMap.cs" />
     <Compile Include="Map\ResultadoMap.cs" />
-    <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Map\Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

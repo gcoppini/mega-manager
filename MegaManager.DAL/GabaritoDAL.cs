@@ -5,22 +5,15 @@ using MegaManager.Domain.Main;
 
 namespace MegaManager.DAL
 {
-    public class GabaritoDAL : BaseDAL
+    public class GabaritoDAL : BaseRepository<Gabarito>
     {
         private bool _disposed;
         
         public List<Gabarito> GetAll()
         {
-            var listResult = new List<Gabarito>();
-
-            using (DataContext ctx = new DataContext())
-            {
-                listResult = ctx.Gabaritos.ToList();
-            }
-
-            return listResult;
+            return base.GetAll().ToList();
         }
-        
+
         protected override void Dispose(bool disposing)
         {
             if (_disposed)
@@ -37,5 +30,6 @@ namespace MegaManager.DAL
 
             base.Dispose(disposing);
         }
+
     }
 }

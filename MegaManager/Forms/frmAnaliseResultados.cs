@@ -22,19 +22,17 @@ namespace MegaManager
         public DateTime DataFinal { get; set; }
 
         List<Resultado> listaResultados = new List<Resultado>();
-
         List<Gabarito> listaGabaritos = new List<Gabarito>();
-
         List<int> listaNumerosResultados = new List<int>();
 
 
         public frmAnaliseResultados()
         {
             InitializeComponent();
-
-
-            CarregaResultados();
-            CarrregaGabaritos();
+            
+            listaResultados = App.Instance._resultadoRepository.GetAll().ToList();
+            listaGabaritos = App.Instance._gabaritoRepository.GetAll().ToList();
+            
             IdentificaGabarito();
             CarregaListaNumeros();
 
@@ -43,28 +41,18 @@ namespace MegaManager
 
             
         }
-
-
+        
         private void CarregaListaNumeros()
         {
-            List<Resultado> lista = new List<Resultado>();
-
-            using (ResultadoDAL dal = new ResultadoDAL())
-            {
-                lista = dal.GetAll();
-            }
-
-
-
+            List<Resultado> lista = App.Instance._resultadoRepository.GetAll().ToList();
+            
             listaNumerosResultados.AddRange(lista.Select(x => int.Parse(x.Dezena1)));
             listaNumerosResultados.AddRange(lista.Select(x => int.Parse(x.Dezena2)));
             listaNumerosResultados.AddRange(lista.Select(x => int.Parse(x.Dezena3)));
             listaNumerosResultados.AddRange(lista.Select(x => int.Parse(x.Dezena4)));
             listaNumerosResultados.AddRange(lista.Select(x => int.Parse(x.Dezena5)));
             listaNumerosResultados.AddRange(lista.Select(x => int.Parse(x.Dezena6)));
-
-
-
+            
             var noticesGrouped = listaNumerosResultados.GroupBy(n => n).
                     Select(group =>
                         new
@@ -95,26 +83,9 @@ namespace MegaManager
 
         }
         
-        private void CarregaResultados()
-        {
-            using (ResultadoDAL dal = new ResultadoDAL())
-            {
-                listaResultados = dal.GetAll();
-            }
-        }
-
-        private void CarrregaGabaritos()
-        {
-            using (GabaritoDAL dal = new GabaritoDAL())
-            {
-                listaGabaritos = dal.GetAll();
-            }
-        }
-
         private void IdentificaGabarito()
         {
-        
-            
+                    
             foreach (var resultado in listaResultados)
             {
 
@@ -140,8 +111,6 @@ namespace MegaManager
                                          
 
             }
-
-            
 
         }
 

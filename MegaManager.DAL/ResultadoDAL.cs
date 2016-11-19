@@ -5,21 +5,13 @@ using MegaManager.Data.Main;
 
 namespace MegaManager.DAL
 {
-    public class ResultadoDAL : BaseDAL
+    public class ResultadoDAL : BaseRepository<Resultado>
     {
         private bool _disposed;
 
         public List<Resultado> GetAll() 
         {
-            var listResult = new List<Resultado>();
-
-            using (DataContext ctx = new DataContext())
-            {
-                listResult = ctx.Resultados.ToList();
-            }
-
-
-            return listResult;
+            return base.GetAll().ToList();
         }
 
         public void ImportToDatabase(List<Resultado> listToImport)
@@ -34,7 +26,7 @@ namespace MegaManager.DAL
                 ctx.SaveChanges();
             }
         }
-                
+
         protected override void Dispose(bool disposing)
         {
             if (_disposed)
@@ -51,5 +43,7 @@ namespace MegaManager.DAL
 
             base.Dispose(disposing);
         }
+
+
     }
 }

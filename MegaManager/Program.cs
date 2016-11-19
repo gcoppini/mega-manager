@@ -18,11 +18,13 @@ namespace MegaManager
         {
             AppDomain currentDomain = AppDomain.CurrentDomain;
             currentDomain.UnhandledException += new UnhandledExceptionEventHandler(GlobalExceptionHandler);
-                        
+
+            CompositionRoot.Wire(new ApplicationModule());
+
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new frmMain());
-  
+
+            Application.Run(CompositionRoot.Resolve<frmMain>());
         }
 
         private static void GlobalExceptionHandler(object sender, UnhandledExceptionEventArgs args)

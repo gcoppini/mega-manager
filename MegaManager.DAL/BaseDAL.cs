@@ -3,6 +3,7 @@ using System.Data.Common;
 
 namespace MegaManager.DAL
 {
+    [Obsolete]
     public abstract class BaseDAL : IDisposable
     {
 
