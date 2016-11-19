@@ -281,33 +281,23 @@ namespace MegaManager
 
         private void ImportarResultados()
         {
-            List<Resultado> lista = new List<Resultado>();
-
-            using (ResultadoDAL dal = new ResultadoDAL())
-            {
-                lista = dal.GetAll();
-            }
-
-            var novos = (from r in listToImport
-                         where !(from p in lista select p.Concurso).Contains(r.Concurso)
+            List<Resultado> listaResultadosExistentes = App.Instance._resultadoRepository.GetAll().ToList();
+            
+            //Faz diff entre a lista existente com a lista com novos resultados
+            var listaNovosResultados = (from r in listToImport
+                         where !(from p in listaResultadosExistentes select p.Concurso).Contains(r.Concurso)
                          select r).ToList();
-
-
-
-            if (novos.Count > 0)
+            
+            if (listaNovosResultados.Count > 0)
             {
-                string msg = string.Format("{0} novo resultado.  Deseja Importar?", novos.Count);
+                string msg = string.Format("{0} novo resultado.  Deseja Importar?", listaNovosResultados.Count);
 
                 if (MessageBox.Show(msg, "", MessageBoxButtons.YesNo) == System.Windows.Forms.DialogResult.Yes)
                 {
-
                     try
                     {
-                        using (ResultadoDAL dal = new ResultadoDAL())
-                        {
-                            dal.ImportToDatabase(novos);
-                        }
-
+                        listaNovosResultados.ForEach(App.Instance._resultadoRepository.Adicionar);
+                        App.Instance._resultadoRepository.SalvarTodos();
                         MessageBox.Show("Importação realizada com sucesso");
                     }
                     catch (Exception)
@@ -429,11 +419,8 @@ namespace MegaManager
             List<Resultado> result = ParseArquivoResultado(extratec_file);
 
             CarregaGridResultados(result);
-
-
+            
             listToImport = result;
-
-
         }
 
 
