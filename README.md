@@ -9,3 +9,5 @@ Esta foi uma forma divertida de realizar os bolões pelas empresas em que atuei,
 - Visual Studio 2015
 - C# / WinForms / EF / DDD
 - Quick-and-dirty - 4fun - :o)
+- R (Random forests, Markov Chain Monte Carlo, XGBoost, e outros)
+
