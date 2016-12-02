@@ -1,5 +1,4 @@
 ﻿using HtmlAgilityPack;
-using MegaManager.DAL;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -11,6 +10,8 @@ using System.Net;
 using System.Security.Cryptography;
 using System.Windows.Forms;
 using MegaManager.Domain.Main;
+using MegaManager.Infra.Data;
+using MegaManager.Infra.CrossCutting;
 
 namespace MegaManager
 {
@@ -317,7 +318,7 @@ namespace MegaManager
         {
             List<Resultado> lista = new List<Resultado>();
 
-            using (ResultadoDAL dal = new ResultadoDAL())
+            using (ResultadoRepository dal = new ResultadoRepository())
             {
                 lista = dal.GetAll();
             }
@@ -362,7 +363,7 @@ namespace MegaManager
         {
             List<Resultado> lista = new List<Resultado>();
 
-            using (ResultadoDAL dal = new ResultadoDAL())
+            using (ResultadoRepository dal = new ResultadoRepository())
             {
                 lista = dal.GetAll();
             }

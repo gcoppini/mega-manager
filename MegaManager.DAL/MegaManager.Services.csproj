@@ -7,8 +7,8 @@
     <ProjectGuid>{C841BB8E-6328-4C2E-BE43-7B1C55E34C54}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>MegaManager.DAL</RootNamespace>
-    <AssemblyName>MegaManager.DAL</AssemblyName>
+    <RootNamespace>MegaManager.Services</RootNamespace>
+    <AssemblyName>MegaManager.Services</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -47,16 +47,20 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BaseDAL.cs" />
-    <Compile Include="GabaritoDAL.cs" />
-    <Compile Include="PrevisaoDAL.cs" />
+    <Compile Include="Base\BaseService.cs" />
+    <Compile Include="Base\IBaseService.cs" />
+    <Compile Include="Base\IService.cs" />
+    <Compile Include="Base\IServiceDTO.cs" />
+    <Compile Include="Base\Service.cs" />
+    <Compile Include="Services\GabaritoService.cs" />
+    <Compile Include="Services\PrevisaoService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ResultadoDAL.cs" />
+    <Compile Include="Services\ResultadoService.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\MegaManager.Data.Core\MegaManager.Data.Main.csproj">
+    <ProjectReference Include="..\MegaManager.Data.Core\MegaManager.Infra.Data.csproj">
       <Project>{0c7f92ba-17ba-4158-9a55-949a45a88fd4}</Project>
-      <Name>MegaManager.Data.Main</Name>
+      <Name>MegaManager.Infra.Data</Name>
     </ProjectReference>
     <ProjectReference Include="..\MegaManager.Domain.Main\MegaManager.Domain.Main.csproj">
       <Project>{c10b1041-5472-4559-bdfc-2f83279b70ff}</Project>
@@ -67,6 +71,7 @@
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

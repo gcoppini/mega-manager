@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MegaManager.Data.Main
+namespace MegaManager.Infra.Data
 {
     public interface IRepository<TEntity> where TEntity : class
     {

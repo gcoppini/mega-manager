@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using MegaManager.Data.Main;
 using MegaManager.Domain.Main;
+using MegaManager.Infra.Data;
 
 namespace MegaManager
 {

@@ -1,35 +1,30 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using MegaManager.Data.Main;
 using MegaManager.Domain.Main;
+using MegaManager.Data.Main;
 
-namespace MegaManager.DAL
+namespace MegaManager.Infra.Data
 {
-    public class PrevisaoDAL : BaseRepository<Previsao>
+    public class ResultadoRepository : BaseRepository<Resultado>
     {
         private bool _disposed;
-        
-        public List<Previsao> GetAll()
+
+        public List<Resultado> GetAll() 
         {
-            var listResult = new List<Previsao>();
-
-            using (DataContext ctx = new DataContext())
-            {
-                listResult = ctx.Previsoes.ToList();
-            }
-
-
-            return listResult;
+            return base.GetAll().ToList();
         }
 
-        public void Adicionar(Previsao previsao)
+        public void ImportToDatabase(List<Resultado> listToImport)
         {
-            using (DataContext ctx = new DataContext())
+            using (MegaManagerContext ctx = new MegaManagerContext())
             {
-                ctx.Previsoes.Add(previsao);
+                foreach (var item in listToImport)
+                {
+                    ctx.Resultados.Add(item);
+                }
+
                 ctx.SaveChanges();
             }
-
         }
 
         protected override void Dispose(bool disposing)
@@ -48,6 +43,7 @@ namespace MegaManager.DAL
 
             base.Dispose(disposing);
         }
-                
+
+
     }
 }

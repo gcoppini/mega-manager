@@ -2,11 +2,10 @@
 using System.Data;
 using System.Reflection;
 
-namespace MegaManager
+namespace MegaManager.Infra.CrossCutting
 {
     public static class Helpers
     {
-
         public static DataTable ToDataTable<T>(List<T> items)
         {
             DataTable dataTable = new DataTable(typeof(T).Name);

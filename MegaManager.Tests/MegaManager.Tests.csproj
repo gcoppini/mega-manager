@@ -61,9 +61,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\MegaManager.Data.Core\MegaManager.Data.Main.csproj">
+    <ProjectReference Include="..\MegaManager.Data.Core\MegaManager.Infra.Data.csproj">
       <Project>{0c7f92ba-17ba-4158-9a55-949a45a88fd4}</Project>
-      <Name>MegaManager.Data.Main</Name>
+      <Name>MegaManager.Infra.Data</Name>
     </ProjectReference>
     <ProjectReference Include="..\MegaManager.Domain.Main\MegaManager.Domain.Main.csproj">
       <Project>{c10b1041-5472-4559-bdfc-2f83279b70ff}</Project>

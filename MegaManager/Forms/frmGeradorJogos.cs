@@ -1,5 +1,4 @@
-﻿using MegaManager.DAL;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -7,6 +6,8 @@ using System.Linq;
 using System.Windows.Forms;
 using System.Threading;
 using MegaManager.Domain.Main;
+using MegaManager.Infra.Data;
+using MegaManager.Infra.CrossCutting;
 
 namespace MegaManager
 {
@@ -114,7 +115,7 @@ namespace MegaManager
 
         private void CarregaListaJogosSorteados()
         {
-            using (ResultadoDAL dal = new ResultadoDAL())
+            using (ResultadoRepository dal = new ResultadoRepository())
             {
                 listaJogosSorteados = dal.GetAll();
             }
@@ -122,7 +123,7 @@ namespace MegaManager
 
         private void CarrregaGabaritos()
         {
-            using (GabaritoDAL dal = new GabaritoDAL())
+            using (GabaritoRepository dal = new GabaritoRepository())
             {
                 listaGabaritos = dal.GetAll();
             }

@@ -92,11 +92,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App.cs" />
-    <Compile Include="ApplicationModule.cs" />
+    <Compile Include="Modules\ApplicationModule.cs" />
     <Compile Include="Forms\BaseForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="CompositionRoot.cs" />
+    <Compile Include="Modules\CompositionRoot.cs" />
     <Compile Include="Forms\frmAnaliseR.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -145,7 +145,6 @@
     <Compile Include="Forms\frmPrevisao.Designer.cs">
       <DependentUpon>frmPrevisao.cs</DependentUpon>
     </Compile>
-    <Compile Include="Helpers.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Forms\frmAnaliseR.resx">
@@ -228,17 +227,21 @@
     <Folder Include="Files\R\Scripts\" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\MegaManager.DAL\MegaManager.DAL.csproj">
+    <ProjectReference Include="..\MegaManager.DAL\MegaManager.Services.csproj">
       <Project>{c841bb8e-6328-4c2e-be43-7b1c55e34c54}</Project>
-      <Name>MegaManager.DAL</Name>
+      <Name>MegaManager.Services</Name>
     </ProjectReference>
-    <ProjectReference Include="..\MegaManager.Data.Core\MegaManager.Data.Main.csproj">
+    <ProjectReference Include="..\MegaManager.Data.Core\MegaManager.Infra.Data.csproj">
       <Project>{0c7f92ba-17ba-4158-9a55-949a45a88fd4}</Project>
-      <Name>MegaManager.Data.Main</Name>
+      <Name>MegaManager.Infra.Data</Name>
     </ProjectReference>
     <ProjectReference Include="..\MegaManager.Domain.Main\MegaManager.Domain.Main.csproj">
       <Project>{c10b1041-5472-4559-bdfc-2f83279b70ff}</Project>
       <Name>MegaManager.Domain.Main</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MegaManager.Infra.CrossCutting\MegaManager.Infra.CrossCutting.csproj">
+      <Project>{1e338869-95e5-450e-a168-e335e9d3160c}</Project>
+      <Name>MegaManager.Infra.CrossCutting</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

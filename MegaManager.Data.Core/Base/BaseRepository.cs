@@ -5,14 +5,14 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Data.Entity;
 
-namespace MegaManager.Data.Main
+namespace MegaManager.Infra.Data
 {
     public class BaseRepository<TEntity> : IDisposable, IRepository<TEntity> where TEntity : class
     {
         // Flag stating if the current instance is allready disposed.
         private bool _disposed;
 
-        DataContext ctx = new DataContext();
+        MegaManagerContext ctx = new MegaManagerContext();
         
         public IQueryable<TEntity> GetAll()
         {

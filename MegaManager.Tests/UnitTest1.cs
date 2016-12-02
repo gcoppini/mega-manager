@@ -1,6 +1,7 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using MegaManager.Data.Main;
 using System.Linq;
+using MegaManager.Infra.Data;
 
 namespace MegaManager.Tests
 {
@@ -11,7 +12,7 @@ namespace MegaManager.Tests
         public void TestMethod1()
         {
 
-            using (DataContext ctx = new DataContext())
+            using (MegaManagerContext ctx = new MegaManagerContext())
             {
                 var gabaritos = ctx.Gabaritos.ToList();
             }

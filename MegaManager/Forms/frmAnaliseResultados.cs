@@ -1,16 +1,12 @@
-﻿using MegaManager.DAL;
-using MegaManager.Models;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Windows.Forms.DataVisualization.Charting;
 using MegaManager.Domain.Main;
+using MegaManager.Infra.CrossCutting;
 
 namespace MegaManager
 {

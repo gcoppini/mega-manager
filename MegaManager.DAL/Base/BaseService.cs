@@ -1,22 +1,16 @@
 ﻿using System;
-using System.Data.Common;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
 
-namespace MegaManager.DAL
+
+namespace MegaManager.Services
 {
-    [Obsolete]
-    public abstract class BaseDAL : IDisposable
+    public abstract class BaseService : IBaseService
     {
-
-        internal DbConnection connection;
-        
-
         // Flag stating if the current instance is allready disposed.
         private bool _disposed;
 
-        public BaseDAL()
-        {
-
-        }
 
         public void Dispose()
         {
@@ -34,11 +28,9 @@ namespace MegaManager.DAL
             if (disposing)
             {
                 // Dispose all managed resources here.
-                //connection.Close();
             }
 
             _disposed = true;
         }
-
     }
 }

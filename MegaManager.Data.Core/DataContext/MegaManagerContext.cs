@@ -4,11 +4,11 @@ using System.Data.Entity.ModelConfiguration.Conventions;
 using MegaManager.Data.Main.Map;
 using MegaManager.Domain.Main;
 
-namespace MegaManager.Data.Main
+namespace MegaManager.Infra.Data
 {
-    public class DataContext : DbContext
+    public class MegaManagerContext : DbContext
     {
-             public DataContext() : base("DataContext")
+             public MegaManagerContext() : base("MegaManagerContext")
              {
                   Configuration.LazyLoadingEnabled = false;
                   Configuration.ProxyCreationEnabled = false;

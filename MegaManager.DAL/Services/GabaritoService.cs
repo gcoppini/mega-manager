@@ -3,17 +3,13 @@ using System.Linq;
 using MegaManager.Data.Main;
 using MegaManager.Domain.Main;
 
-namespace MegaManager.DAL
+namespace MegaManager.Services
 {
-    public class GabaritoDAL : BaseRepository<Gabarito>
+    public class GabaritoService : BaseService
     {
         private bool _disposed;
         
-        public List<Gabarito> GetAll()
-        {
-            return base.GetAll().ToList();
-        }
-
+    
         protected override void Dispose(bool disposing)
         {
             if (_disposed)

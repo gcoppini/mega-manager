@@ -8,10 +8,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using MegaManager.DAL;
 using MegaManager.Domain.Main;
 using RDotNet;
-
+using MegaManager.Infra.Data;
 
 namespace MegaManager
 {
@@ -171,7 +170,7 @@ namespace MegaManager
 
         private void btnGerarCSV_Click(object sender, EventArgs e)
         {
-            using (ResultadoDAL dal = new ResultadoDAL())
+            using (ResultadoRepository dal = new ResultadoRepository())
             {
                 lista = dal.GetAll();
             }

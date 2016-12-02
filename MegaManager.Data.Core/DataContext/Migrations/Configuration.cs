@@ -1,16 +1,18 @@
-namespace MegaManager.Data.Main.Migrations
+
+
+namespace MegaManager.Infra.Data.Migrations
 {
     using System.Data.Entity.Migrations;
     using Domain.Main;
 
-    internal sealed class Configuration : DbMigrationsConfiguration<MegaManager.Data.Main.DataContext>
+    internal sealed class Configuration : DbMigrationsConfiguration<MegaManager.Infra.Data.MegaManagerContext>
     {
         public Configuration()
         {
             AutomaticMigrationsEnabled = true;
         }
 
-        protected override void Seed(DataContext context)
+        protected override void Seed(MegaManagerContext context)
         {
             //  This method will be called after migrating to the latest version.
 

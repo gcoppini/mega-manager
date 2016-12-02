@@ -1,4 +1,5 @@
 ﻿using MegaManager.Data.Main;
+using MegaManager.Infra.Data;
 using Ninject.Modules;
 
 namespace MegaManager

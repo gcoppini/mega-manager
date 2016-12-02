@@ -1,5 +1,4 @@
 ﻿using Combinatorics.Collections;
-using MegaManager.DAL;
 using MegaManager.Models;
 using System;
 using System.Collections.Generic;
@@ -13,6 +12,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using MegaManager.Domain.Main;
+using MegaManager.Infra.Data;
+using MegaManager.Infra.CrossCutting;
 
 namespace MegaManager
 {
@@ -27,7 +28,7 @@ namespace MegaManager
         {
             List<Gabarito> lista = new List<Gabarito>();
 
-            using (GabaritoDAL dal = new GabaritoDAL())
+            using (GabaritoRepository dal = new GabaritoRepository())
             {
                 lista = dal.GetAll();
             }

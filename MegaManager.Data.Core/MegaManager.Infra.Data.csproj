@@ -7,8 +7,8 @@
     <ProjectGuid>{0C7F92BA-17BA-4158-9A55-949A45A88FD4}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>MegaManager.Data.Main</RootNamespace>
-    <AssemblyName>MegaManager.Data.Main</AssemblyName>
+    <RootNamespace>MegaManager.Infra.Data</RootNamespace>
+    <AssemblyName>MegaManager.Infra.Data</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <PublishUrl>publish\</PublishUrl>
@@ -66,12 +66,15 @@
   <ItemGroup>
     <Compile Include="Base\BaseRepository.cs" />
     <Compile Include="Base\IRepository.cs" />
-    <Compile Include="DataContext.cs" />
+    <Compile Include="Repositories\GabaritoRepository.cs" />
+    <Compile Include="DataContext\MegaManagerContext.cs" />
     <Compile Include="Map\GabaritoMap.cs" />
     <Compile Include="Map\PrevisaoMap.cs" />
     <Compile Include="Map\ResultadoMap.cs" />
-    <Compile Include="Map\Migrations\Configuration.cs" />
+    <Compile Include="DataContext\Migrations\Configuration.cs" />
+    <Compile Include="Repositories\PrevisaoRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repositories\ResultadoRepository.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

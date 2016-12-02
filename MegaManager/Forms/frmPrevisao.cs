@@ -7,8 +7,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using MegaManager.DAL;
 using MegaManager.Domain.Main;
+using MegaManager.Infra.Data;
+using MegaManager.Infra.CrossCutting;
 
 namespace MegaManager
 {
@@ -25,7 +26,7 @@ namespace MegaManager
 
         private void CarregaPrevisoes()
         {
-            using (PrevisaoDAL dal = new PrevisaoDAL())
+            using (PrevisaoRepository dal = new PrevisaoRepository())
             {
                 listaPrevisoes = dal.GetAll();
             }
@@ -51,7 +52,7 @@ namespace MegaManager
 
         public void AdiconarPrevisao(Previsao previsao) {
 
-            using (PrevisaoDAL previsaoDal = new PrevisaoDAL())
+            using (PrevisaoRepository previsaoDal = new PrevisaoRepository())
             {
                 previsaoDal.Adicionar(previsao);
             }
