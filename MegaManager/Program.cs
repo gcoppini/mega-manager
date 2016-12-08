@@ -35,6 +35,11 @@ namespace MegaManager
             sb.AppendFormat("Runtime terminating: {0}", args.IsTerminating);
             MessageBox.Show(sb.ToString());
 
+            if (args.IsTerminating) {
+                Application.Exit(); //ToDo: Collect crash dump
+            }
+
+
         }
     }
 }

@@ -15,6 +15,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MegaManager.Domain.Main", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MegaManager.Infra.CrossCutting", "MegaManager.Infra.CrossCutting\MegaManager.Infra.CrossCutting.csproj", "{1E338869-95E5-450E-A168-E335E9D3160C}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "99-UI", "99-UI", "{024BF8E0-C192-4482-88E1-C22E8D27AF70}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MegaManager.UI.Desktop.WPF", "MegaManager.UI.Desktop.WPF\MegaManager.UI.Desktop.WPF.csproj", "{BBC68B80-5D8D-4DD1-B00B-56D05738977D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -45,6 +49,10 @@ Global
 		{1E338869-95E5-450E-A168-E335E9D3160C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1E338869-95E5-450E-A168-E335E9D3160C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1E338869-95E5-450E-A168-E335E9D3160C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BBC68B80-5D8D-4DD1-B00B-56D05738977D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BBC68B80-5D8D-4DD1-B00B-56D05738977D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BBC68B80-5D8D-4DD1-B00B-56D05738977D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BBC68B80-5D8D-4DD1-B00B-56D05738977D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
